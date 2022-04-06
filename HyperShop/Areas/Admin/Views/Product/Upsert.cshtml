@@ -1,0 +1,112 @@
+﻿@using HyperShop.Models.ViewModels
+@model ProductVM
+
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+	<div class="border p-3 mt-4 row">
+		<input type="hidden" asp-for="Product.Id"/> 
+		<div class="row pb-2 col-12">
+			<h2 class="text-primary">@(Model.Product.Id==0?"Create":"Update") Product</h2>
+			<hr />
+		</div>
+		<div class="mb-3 col-12">
+			<label asp-for="Product.Name"></label>
+			<input asp-for="Product.Name" class="form-control" />
+			<span asp-validation-for="Product.Name" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-12">
+			<label asp-for="Product.Description"></label>
+			<textarea asp-for="Product.Description" class="form-control"></textarea>
+		</div>
+		<div class="mb-3 col-6">
+			<label asp-for="Product.Price"></label>
+			<input asp-for="Product.Price" type="number" class="form-control" />
+			<span asp-validation-for="Product.Price" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+			<label asp-for="Product.Gender"></label>
+			<select asp-for="Product.Gender" class="form-control">
+				<option disabled selected>--Select gender--</option>
+				<option>Male</option>
+				<option>Female</option>
+				<option>Unisex</option>
+			</select>
+			<span asp-validation-for="Product.Gender" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+			<label asp-for="Product.ShoesHeight"></label>
+			<select asp-for="Product.ShoesHeight" class="form-control">
+				<option disabled selected>--Select shoes height--</option>
+				<option>Hight</option>
+				<option>Mid</option>
+				<option>Low</option>
+			</select>
+			<span asp-validation-for="Product.ShoesHeight" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+			<label asp-for="Product.ClosureType"></label>
+			<select asp-for="Product.ClosureType" class="form-control">
+				<option disabled selected>--Select closure type--</option>
+				<option>Laces</option>
+				<option>Strap</option>
+			</select>
+			<span asp-validation-for="Product.ClosureType" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+			<label asp-for="Product.PublishedDate"></label>
+			<input asp-for="Product.PublishedDate" class="form-control" />
+			<span asp-validation-for="Product.PublishedDate" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-12">
+			<label asp-for="Product.MainImage"></label>
+			<input type="file" id="uploadBox" name="file" class="form-control" />
+			<input type="hidden" asp-for="Product.MainImage"/>
+		</div>
+		<div class="mb-3 col-6">
+			<label asp-for="Product.Brand_Id"></label>
+			<select asp-for="Product.Brand_Id" asp-items="@Model.BrandList" class="form-control">
+				<option disabled selected>--Select Brand--</option>
+			</select>
+			<span asp-validation-for="Product.Brand_Id" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+			<label asp-for="Product.Category_Id"></label>
+			<select asp-for="Product.Category_Id" asp-items="@Model.CategoryList" class="form-control">
+				<option disabled selected>--Select Category--</option>
+			</select>
+			<span asp-validation-for="Product.Category_Id" class="text-danger"></span>
+		</div>
+		<div class="col-12">
+			@if(Model.Product.Id==0){
+				<button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+			}
+			else
+			{
+				<button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+			}
+			<a asp-controller="Category" asp-action="Index" class="btn btn-secondary" style="width:150px">
+				Back to List
+			</a>
+		</div>
+	</div>
+</form>
+
+@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+	<script>
+		function ValidateInput(){
+			if(document.getElementById("uploadBox").value==""){
+				Swal.fire({
+				  title: 'Error!',
+				  text: 'Image can not be empty',
+				  icon: 'error',
+				  confirmButtonText: 'Cool'
+				});
+				return false;
+			}
+			return true;
+		}
+		
+	</script>
+}

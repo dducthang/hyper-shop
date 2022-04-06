@@ -1,0 +1,39 @@
+.text-l1 {
+    font-size: 20px;
+    color: #3e3d3d;
+    font-weight: 300;
+}
+
+.size-box {
+    background-color: #e7e7e7;
+    border: 1px solid #c9c9c9;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    color: #747474;
+}
+
+.size-box-avai{
+    background-color: white;
+    cursor: pointer;
+}
+
+.size-box-avai:hover {
+    background-color: #4fbfa8;
+    color: white;
+    border-color: white;
+}
+
+.size-box-active {
+    background-color: #4fbfa8;
+    color: white;
+    border-color: white;
+}
+
+.image-active {
+    border: 1px solid #4fbfa8;
+}
+
+
+
+

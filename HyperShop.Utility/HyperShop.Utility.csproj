@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="40611067-2059-46ae-b61b-57d26a683919.jpg" />
+    <None Remove="412134a0-3db4-49d9-abf7-93e0a888df01.jpg" />
+    <None Remove="4e186835-ef2c-4f17-a711-4bac7f45b105.jpg" />
+    <None Remove="51a0ee8f-ba9a-4b92-9e0f-fa4995066e36.jpg" />
+    <None Remove="5ddfefc7-cfda-4e4b-a795-40e92a88b73c.jpg" />
+    <None Remove="6a4e3c54-06d5-42ca-ada2-e088b3cb412b.jpg" />
+    <None Remove="88720ca7-6a0f-41c4-9ac8-86c75f4423c2.jpg" />
+    <None Remove="946b2794-6e2e-4c14-8d94-9cf49252a6cd.jpg" />
+    <None Remove="9e26236e-3baa-4b6c-988a-351a1b9a1655.jpg" />
+    <None Remove="af792bd4-1abd-4696-a014-d9d9d62127ef.jpg" />
+    <None Remove="b527f4a7-3878-45d5-baa0-5ad8a1a4ca23.jpg" />
+    <None Remove="bd9a35f7-98d0-4fcd-8a80-e80459c73676.jpg" />
+    <None Remove="d87ef38b-45d1-42b9-9611-77b10cdc5f9b.jpg" />
+    <None Remove="d8856ef4-5860-481c-9817-ade397721f1c.jpg" />
+    <None Remove="da3f92c0-d273-4fda-a24d-bc39aff637d6.jpg" />
+    <None Remove="e0b2fbac-d547-4183-9ebe-6b9d7edf1c58.jpg" />
+    <None Remove="ee995ab3-9d2e-4392-8d4c-014b13ac5502.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.2" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="2.1.0" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,98 @@
+﻿@model HyperShop.Models.Product
+
+@if (TempData["success"] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr.success('@TempData["success"]');     
+    </script>
+}
+
+<div class="container p-3">
+    <div class="row">
+        <div class="col-3 row">
+            <img class="col-12" src="@Model.MainImage"/>
+            <div class="col-12 d-flex justify-content-center m-1">
+                <a asp-controller="ProductVariation" asp-action="Create" asp-route-productId="@Model.Id" class="btn btn-primary" style="width: 90%;">
+                    <i class="bi bi-plus-circle"></i> &nbsp; Create New Variation
+		        </a>
+	        </div>
+            <div class="col-12 d-flex justify-content-center m-1">
+                <a asp-controller="Product" asp-action="Index" class="btn btn-secondary" style="width: 90%;">
+			        Back to List
+		        </a>
+	        </div>
+            
+        </div>
+        <div class="col-9 row">
+            <div class="col-12">
+                @Model.Description
+            </div>
+            <table class="table table-bordered table-striped col-12" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Gender</th>
+                        <th>Hight</th>
+                        <th>Closure type</th>
+                        <th>Published Date</th>
+                        <th>Brand</th>
+                        <th>Category</th>
+		            </tr>
+	            </thead>
+                <tbody>
+                    <tr>
+                        <td width="10%">
+                            @Model.Id
+				        </td>
+                        <td width="10%">
+                            @Model.Name
+				        </td>
+                        <td width="10%">
+                            @Model.Price
+				        </td>
+                        <td width="10%">
+                            @Model.Gender
+				        </td>
+                        <td width="10%">
+                            @Model.ShoesHeight
+				        </td>
+                        <td width="10%">
+                            @Model.ClosureType
+				        </td>
+                        <td width="10%">
+                            @Model.PublishedDate
+				        </td>
+                        <td width="10%">
+                            @Model.Brand.Name
+				        </td>
+                        <td width="10%">
+                            @Model.Category.Name
+				        </td>
+			        </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <br /><br />
+
+    <table id="tblData" data-productid="@Model.Id" class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Color</th>
+                <th></th>
+		    </tr>
+	    </thead>
+    </table>
+</div>
+
+@section Scripts{
+    <script src="~/js/productVariation.js"></script>
+}
+
+

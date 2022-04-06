@@ -1,0 +1,87 @@
+﻿@using HyperShop.Models.ViewModels
+@model VariationVM
+
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+	<div class="border p-3 mt-4 row">
+		
+		<div class="row pb-2 col-12">
+			<h2 class="text-primary">Create Product Variation</h2>
+			<hr />
+		</div>
+
+		@*<div class="mb-3 col-6">
+			<label asp-for="ProductVariation.Product_Id"></label>
+			<input asp-for="ProductVariation.Product_Id" type="number" />
+		</div>*@
+		<div class="mb-3 col-6">
+			<label asp-for="PrimaryImage.Color_Id"></label>
+			<select asp-for="PrimaryImage.Color_Id" asp-items="@Model.ColorList" class="form-control">
+				<option disabled selected>--Select Color--</option>
+			</select>
+			<span asp-validation-for="PrimaryImage.Color_Id" class="text-danger"></span>
+		</div>
+		
+		<div class="mb-3 col-6 row">
+			@for(var i=0;i<Model.SizeList.Count;i++)
+			{
+				<div class="col-6 row">
+					<div class="mb-3 col-6">
+						<label>@Model.SizeList[i].Key</label>
+						<input asp-for="@Model.SizeList[i].Key" type="hidden"/>
+					</div>
+					<div class="mb-3 col-6">
+						<input asp-for="@Model.SizeList[i].Value" type="number" min="0" max="100"/>
+					</div>
+				</div>
+			}
+		</div>
+		<div class="mb-3 col-6">
+			<label asp-for="PrimaryImage"></label>
+			<input type="file" id="uploadBox" name="file" class="form-control" />
+			<input type="hidden" asp-for="PrimaryImage.ImageUrl"/>
+			<input type="hidden" asp-for="PrimaryImage.Product_Id" value="@TempData["productId"]"/> 
+		</div>
+
+		<div class="mb-3 col-6">
+			<label asp-for="ImageList"></label>
+			<input asp-for="ImageList" type="file" id="uploadBoxList" multiple class="form-control" />
+			<span asp-validation-for="ImageList" class="text-danger"></span>
+		</div>
+
+		
+		
+		<div class="col-12">
+			<button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+			@*@if(Model.ProductVariation.Id==0){
+			}
+			else
+			{
+				<button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+			}*@
+			<a asp-controller="Category" asp-action="Index" class="btn btn-secondary" style="width:150px">
+				Back to List
+			</a>
+		</div>
+	</div>
+</form>
+
+@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+	<script>
+		function ValidateInput(){
+			if(document.getElementById("uploadBox").value=="" || document.getElementById("uploadBoxList").value=="" ){
+				Swal.fire({
+				  title: 'Error!',
+				  text: 'Image can not be empty',
+				  icon: 'error',
+				  confirmButtonText: 'Cool'
+				});
+				return false;
+			}
+			return true;
+		}
+		
+	</script>
+}
