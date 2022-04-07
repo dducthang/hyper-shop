@@ -39,6 +39,7 @@ namespace HyperShop.Areas.Customer.Controllers
             var cartSession = JsonConvert
                     .DeserializeObject<CartVM>(HttpContext.Session.GetString("CartSession"));
 
+
             if (!User.IsInRole(SD.Role_User))
             {
                 foreach (var cartDetail in cartSession.CartDetails)
@@ -51,49 +52,57 @@ namespace HyperShop.Areas.Customer.Controllers
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+                //get user cart
                 var cart = _unitOfWork.Cart.GetFirstOrDefault(c => c.User_Id == userId);
                 var cartItems = _unitOfWork.CartDetail.GetAllByCartId(cart.Id, "ProductVariation").ToList();
 
+                //move all CartSession's items into User's cart
                 cartVm.CartDetails = cartItems;
+
+                //update all CartSession's items that match with the one in User's cart
                 foreach(var item in cartVm.CartDetails)
                 {
+                    //update item if it is existed in User's Cart
                     var existedItem = cartSession.CartDetails.FirstOrDefault(i => i.ProductVariation_Id == item.ProductVariation_Id);
+                    
                     if (existedItem != null)
                     {
+                        var index = cartSession.CartDetails.IndexOf(existedItem);
                         item.Quantity += existedItem.Quantity;
-                        cartSession.CartDetails.Remove(existedItem);
-                        cartSession.Images
-                            .Remove(cartSession.Images.FirstOrDefault(i =>
-                                                        i.Product_Id == item.ProductVariation.Product_Id
-                                                        && i.Color_Id == item.ProductVariation.Color_Id));
+                        cartSession.CartDetails.Remove(cartSession.CartDetails[index]);
+                        cartSession.Images.Remove(cartSession.Images[index]);
+                       
                         _unitOfWork.CartDetail.Update(item);
                     }
 
-                    var image = _unitOfWork.PrimaryImage
-                        .GetFirstOrDefault(i =>     
-                                i.Color_Id == item.ProductVariation.Color_Id 
-                                && i.Product_Id == item.ProductVariation.Product_Id);
+                    var image = _unitOfWork.PrimaryImage.GetFirstOrDefault(i =>     
+                                                i.Color_Id == item.ProductVariation.Color_Id 
+                                                && i.Product_Id == item.ProductVariation.Product_Id);
 
+                    //add Image with index matched with the cart detail in User's cart
                     cartVm.Images.Add(image);
                 }
 
-                for(var i= 0; i < cartSession.CartDetails.Count; i++)
+                //move items that have not been matched with anything into User's cart
+                foreach (var cartDetail in cartSession.CartDetails)
                 {
-                    
+
                     _unitOfWork.CartDetail.Add(new CartDetail
                     {
-                        Cart_Id=cart.Id,
-                        ProductVariation_Id = cartSession.CartDetails[i].ProductVariation_Id,
-                        Quantity = cartSession.CartDetails[i].Quantity
+                        Cart_Id = cart.Id,
+                        ProductVariation_Id = cartDetail.ProductVariation_Id,
+                        Quantity = cartDetail.Quantity
                     });
-                    cartSession.CartDetails[i].ProductVariation = _unitOfWork.ProductVariation
-                                                                            .GetFirstOrDefault(it => it.Id == cartSession.CartDetails[i].ProductVariation_Id, "Size,Color,Product");
-                    cartVm.CartDetails.Add(cartSession.CartDetails[i]);
-                    cartVm.Images.Add(cartSession.Images[i]);
-                    cartSession.CartDetails.Remove(cartSession.CartDetails[i]);
-                    cartSession.Images.Remove(cartSession.Images[i]);
+                    cartDetail.ProductVariation = _unitOfWork.ProductVariation
+                                                                            .GetFirstOrDefault(it => it.Id == cartDetail.ProductVariation_Id, "Size,Color,Product");
                     
+                    var index = cartSession.CartDetails.IndexOf(cartDetail);
+
+                    cartVm.CartDetails.Add(cartSession.CartDetails[index]);
+                    cartVm.Images.Add(cartSession.Images[index]);
                 }
+                cartSession.CartDetails.Clear();
+                cartSession.Images.Clear();
                 HttpContext.Session.SetString("CartSession", JsonConvert.SerializeObject(cartSession));
 
                 _unitOfWork.Save();
@@ -268,7 +277,7 @@ namespace HyperShop.Areas.Customer.Controllers
 
                 cartDetail = cartSession.CartDetails.FirstOrDefault(i => i.ProductVariation_Id == obj.VariationId);
                 cartDetail.ProductVariation = _unitOfWork.ProductVariation.GetFirstOrDefault(i => i.Id == cartDetail.ProductVariation_Id, "Size,Color,Product");
-                obj.Total -= (int)((cartDetail.Quantity - obj.Quantity) * (cartDetail.ProductVariation.Product.Price));
+                obj.Total -= (int)(cartDetail.Quantity * cartDetail.ProductVariation.Product.Price);
 
                 int index = cartSession.CartDetails.IndexOf(cartDetail);
                 cartSession.CartDetails.Remove(cartSession.CartDetails[index]);

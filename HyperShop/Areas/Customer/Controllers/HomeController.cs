@@ -23,7 +23,7 @@ namespace HyperShop.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var cart = _unitOfWork.Cart.GetFirstOrDefault(c => c.User_Id == userId);
-            if (cart == null)
+            if (userId != null && cart == null)
             {
                 _unitOfWork.Cart.Add(new Models.Cart
                 {
