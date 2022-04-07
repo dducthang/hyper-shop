@@ -10,6 +10,6 @@ namespace HyperShop.Utility.Class
     {
         public int productId { get; set; }
         public int colorId { get; set; }
-        public List<int> sizeList { get; set; }
+        public List<float> sizeList { get; set; }
     }
 }

@@ -48,5 +48,28 @@ namespace HyperShop.DataAccess.Repository
             }
             return items.ToList();
         }
+
+        public IEnumerable<CartDetail> GetAllByProductVariationId(int productVariationId, string? includeProperties = null)
+        {
+            IQueryable<CartDetail> items = _db.CartDetails.Where(x => x.ProductVariation_Id == productVariationId);
+            if (includeProperties != null)
+            {
+                foreach (var prop in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    if (prop == "ProductVariation")
+                    {
+                        var prop2 = "ProductVariation.Size";
+                        var prop3 = "ProductVariation.Color";
+                        var prop4 = "ProductVariation.Product";
+                        items = items.Include(prop2).Include(prop3).Include(prop4);
+                    }
+                    else
+                    {
+                        items = items.Include(prop);
+                    }
+                }
+            }
+            return items.ToList();
+        }
     }
 }

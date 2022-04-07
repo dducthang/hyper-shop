@@ -106,7 +106,7 @@ const AddToCart = async () => {
     let sizeBoxes = document.getElementsByClassName("size-box");
     for (let sizeBox of sizeBoxes) {
         if (sizeBox.classList.contains('size-box-active')) {
-            sizeList.push(parseInt(sizeBox.innerText));
+            sizeList.push(parseFloat(sizeBox.innerText));
         }
     }
 
@@ -131,7 +131,7 @@ const AddToCart = async () => {
             if (response.status >= 200 && response.status < 300) {
                 response.json().then(result => {
                     console.log(result);
-                    toastr.success(result.message);
+                    alert("Add Product To Cart Successfully");
                 })
             }
         })
