@@ -22,14 +22,28 @@
 				</div>
 			}
 		</div>
-		<div class="mb-3 col-6">
-			<label asp-for="PrimaryImage"></label>
-			<input type="file" id="uploadBox" name="file" class="form-control" />
-			<input type="hidden" asp-for="PrimaryImage.ImageUrl"/>
-			<input type="hidden" asp-for="PrimaryImage.Product_Id"/> 
-			<input type="hidden" asp-for="PrimaryImage.Color_Id"/> 
-			<input type="hidden" asp-for="PrimaryImage.Id"/> 
+		<div class="row col-6" >
+			<div class="col-6">
+				<label asp-for="PrimaryImage"></label>
+				<input type="file" id="uploadBox" name="file" class="form-control" />
+				<input type="hidden" asp-for="PrimaryImage.ImageUrl"/>
+				<input type="hidden" asp-for="PrimaryImage.Product_Id"/> 
+				<input type="hidden" asp-for="PrimaryImage.Color_Id"/> 
+				<input type="hidden" asp-for="PrimaryImage.Id"/> 
+			</div>
+			<div class="col-6">
+				<label asp-for="ImageList"></label>
+				<input asp-for="ImageList" type="file" id="uploadBoxList" multiple class="form-control" />
+				<span asp-validation-for="ImageList" class="text-danger"></span>
+			</div>
+			<div class="col-12">
+				<button type="submit" class="btn btn-primary" style="width:150px">Edit</button>
+				<a asp-controller="Category" asp-action="Index" class="btn btn-secondary" style="width:150px">
+					Back to List
+				</a>
+			</div>
 		</div>
+		
 		@for(var i = 0; i < Model.ProductVariations.Count; i++)
 		{
 			<input type="hidden" asp-for="@Model.ProductVariations[i].Id"/>
@@ -39,17 +53,8 @@
 			<input type="hidden" asp-for="@Model.ProductVariations[i].Quantity"/>
 		}
 
-		<div class="mb-3 col-6">
-			<label asp-for="ImageList"></label>
-			<input asp-for="ImageList" type="file" id="uploadBoxList" multiple class="form-control" />
-			<span asp-validation-for="ImageList" class="text-danger"></span>
-		</div>
 		
-		<div class="col-12">
-			<button type="submit" class="btn btn-primary" style="width:150px">Edit</button>
-			<a asp-controller="Category" asp-action="Index" class="btn btn-secondary" style="width:150px">
-				Back to List
-			</a>
-		</div>
+		
+		
 	</div>
 </form>

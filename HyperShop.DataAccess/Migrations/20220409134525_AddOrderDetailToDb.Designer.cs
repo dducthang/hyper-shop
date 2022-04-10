@@ -4,6 +4,7 @@ using HyperShop.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HyperShop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220409134525_AddOrderDetailToDb")]
+    partial class AddOrderDetailToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -229,7 +231,7 @@ namespace HyperShop.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("Order_Id")
+                    b.Property<int>("Cart_Id")
                         .HasColumnType("int");
 
                     b.Property<int>("ProductVariation_Id")
@@ -240,7 +242,7 @@ namespace HyperShop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Order_Id");
+                    b.HasIndex("Cart_Id");
 
                     b.HasIndex("ProductVariation_Id");
 
@@ -701,9 +703,9 @@ namespace HyperShop.Data.Migrations
 
             modelBuilder.Entity("HyperShop.Models.OrderDetail", b =>
                 {
-                    b.HasOne("HyperShop.Models.Order", "Order")
+                    b.HasOne("HyperShop.Models.Cart", "Cart")
                         .WithMany()
-                        .HasForeignKey("Order_Id")
+                        .HasForeignKey("Cart_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -713,7 +715,7 @@ namespace HyperShop.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Order");
+                    b.Navigation("Cart");
 
                     b.Navigation("ProductVariation");
                 });

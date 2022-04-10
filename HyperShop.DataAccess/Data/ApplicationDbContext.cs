@@ -21,5 +21,9 @@ namespace HyperShop.DataAccess.Data
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Cart> Carts{ get; set; }
         public DbSet<CartDetail> CartDetails { get; set; }
+        public DbSet<OrderStatus> OrderStatuses { get; set; }
+        public DbSet<CityShipCost> CityShipCosts { get; set; }
+        public DbSet<Order> Orders{ get; set; }
+        public DbSet<OrderDetail> OrderDetail { get; set; }
     }
 }

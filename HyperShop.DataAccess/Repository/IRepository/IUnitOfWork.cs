@@ -18,6 +18,11 @@ namespace HyperShop.DataAccess.Repository.IRepository
         public IImageRepository Image { get; }
         public ICartRepository Cart { get; }
         public ICartDetailRepository CartDetail { get; }
+        public IOrderRepository Order { get; }
+        public IOrderStatusRepository OrderStatus { get; }
+        public ICityShipCostRepository CityShipCost { get; }
+        public IApplicationUserRepository ApplicationUser { get; }
+        public IOrderDetailRepository OrderDetail { get; }
         public void Save();
     }
 }

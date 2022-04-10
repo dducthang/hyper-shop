@@ -25,6 +25,11 @@ namespace HyperShop.DataAccess.Repository
             Image = new ImageRepository(_db);
             Cart = new CartRepository(_db);
             CartDetail = new CartDetailRepository(_db);
+            Order = new OrderRepository(_db);
+            OrderStatus = new OrderStatusRepository(_db);
+            CityShipCost = new CityShipCostRepository(_db);
+            ApplicationUser = new ApplicationUserRepository(_db);
+            OrderDetail = new OrderDetailRepository(_db);
         }
         public ICategoryRepository Category { get; private set; }
         public IBrandRepository Brand { get; private set; }
@@ -36,6 +41,12 @@ namespace HyperShop.DataAccess.Repository
         public IImageRepository Image { get; private set; }
         public ICartRepository Cart { get; private set; }
         public ICartDetailRepository CartDetail { get; private set; }
+        public IOrderRepository Order { get; private set; }
+        public IOrderStatusRepository OrderStatus { get; private set; }
+        public ICityShipCostRepository CityShipCost { get; private set; }
+        public IApplicationUserRepository ApplicationUser { get; private set; }
+        public IOrderDetailRepository OrderDetail { get; }
+
         public void Save()
         {
             _db.SaveChanges();

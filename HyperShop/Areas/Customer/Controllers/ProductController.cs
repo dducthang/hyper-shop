@@ -2,11 +2,13 @@
 using HyperShop.Models;
 using HyperShop.Models.ViewModels;
 using HyperShop.Utility.Class;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HyperShop.Areas.Customer.Controllers
 {
     [Area("Customer")]
+    [Authorize(Roles =SD.Role_User)]
     public class ProductController : Controller
     {
         IUnitOfWork _unitOfWork { get; set; }

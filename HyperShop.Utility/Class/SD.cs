@@ -10,5 +10,8 @@ namespace HyperShop.Utility.Class
     {
         public const string Role_User = "Individual";
         public const string Role_Admin = "Admin";
+        public const string OrderStatus_Pending = "Pending";
+        public const string OrderStatus_Delevering = "Delivering";
+        public const string OrderStatus_Delivered = "Delivered";
     }
 }

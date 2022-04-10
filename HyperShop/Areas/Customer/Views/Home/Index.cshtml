@@ -64,12 +64,27 @@
                         <div class="product">
                             <div class="flip-container">
                                 <div class="flipper">
-                                    <div class="front"><a href="detail.html"><img src="@product.MainImage" alt="" class="img-fluid"></a></div>
-                                    <div class="back"><a href="detail.html"><img src="@product.MainImage" alt="" class="img-fluid"></a></div>
+                                    <div class="front">
+                                        <a asp-area = "Customer" asp-controller="Product" asp-action="ProductDetail" asp-route-productId="@product.Id">
+                                            <img src="@product.MainImage" alt="@product.Name" class="img-fluid">
+                                        </a>
+                                    </div>
+                                    <div class="back">
+                                        <a asp-area = "Customer" asp-controller="Product" asp-action="ProductDetail" asp-route-productId="@product.Id">
+                                            <img src="@product.MainImage" alt="@product.Name" class="img-fluid">
+                                        </a>
+                                    </div>
                                 </div>
-                            </div><a href="detail.html" class="invisible"><img src="@product.MainImage" alt="" class="img-fluid"></a>
+                            </div>
+                                <a asp-area = "Customer" asp-controller="Product" asp-action="ProductDetail" asp-route-productId="@product.Id" class="invisible">
+                                    <img src="@product.MainImage" alt="@product.Name" class="img-fluid">
+                                </a>
                             <div class="text">
-                                <h3><a href="detail.html">@product.Name</a></h3>
+                                <h3>
+                                    <a asp-area = "Customer" asp-controller="Product" asp-action="ProductDetail" asp-route-productId="@product.Id">
+                                        @product.Name
+                                    </a>
+                                </h3>
                                 <p class="price">
                                     <del></del>$@product.Price.00
                                 </p>

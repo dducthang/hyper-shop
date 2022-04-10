@@ -3,17 +3,16 @@
 
 $(document).ready(function () {
     loadDataTable();
-
 });
 
-function loadDataTable(){
+function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         "ajax": {
-            "url":"/Admin/Product/GetAll"
+            "url": "/Admin/Product/GetAll"
         },
         "columns": [
-            {"data":"id", "width":"15%"},
-            {"data":"name", "width":"15%"},
+            { "data": "id", "width": "15%" },
+            { "data": "name", "width": "15%" },
             {
                 "data": "mainImage",
                 "render": function (data) {
@@ -25,12 +24,12 @@ function loadDataTable(){
                 },
                 "width": "15%"
             },
-            {"data":"price", "width":"15%"},
-            {"data":"gender", "width":"15%"},
-            {"data":"shoesHeight", "width":"15%"},
-            {"data":"closureType", "width":"15%"},
-            {"data":"brand.name", "width":"15%"},
-            {"data":"category.name", "width":"15%"},
+            { "data": "price", "width": "15%" },
+            { "data": "gender", "width": "15%" },
+            { "data": "shoesHeight", "width": "15%" },
+            { "data": "closureType", "width": "15%" },
+            { "data": "brand.name", "width": "15%" },
+            { "data": "category.name", "width": "15%" },
             {
                 "data": "publishedDate",
                 "width": "15%"
@@ -46,7 +45,7 @@ function loadDataTable(){
                             <a href="/Admin/ProductVariation/Index?productId=${data}" class="btn btn-primary mx-2">
                                 <i class="bi bi-pencil-square"></i> Variations
                             </a>
-                            <a onClick=Delete('/Admin/Product/Delete?id=${data}') class="btn btn-danger mx-2">
+                            <a class="btn btn-danger mx-2">
                                 <i class="bi bi-trash-fill"></i> Delete
                             </a>
 					    </div>

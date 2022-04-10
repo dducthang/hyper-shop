@@ -4,6 +4,7 @@ using HyperShop.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HyperShop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220408081238_AddCityShipCostsTableTodb")]
+    partial class AddCityShipCostsTableTodb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,82 +171,6 @@ namespace HyperShop.Data.Migrations
                     b.HasIndex("Product_Id");
 
                     b.ToTable("Images");
-                });
-
-            modelBuilder.Entity("HyperShop.Models.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CityShipCost_Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Receiver")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status_Id")
-                        .HasColumnType("int");
-
-                    b.Property<double>("TotalCost")
-                        .HasColumnType("float");
-
-                    b.Property<string>("User_Id")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CityShipCost_Id");
-
-                    b.HasIndex("Status_Id");
-
-                    b.HasIndex("User_Id");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("HyperShop.Models.OrderDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("Order_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductVariation_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Order_Id");
-
-                    b.HasIndex("ProductVariation_Id");
-
-                    b.ToTable("OrderDetail");
                 });
 
             modelBuilder.Entity("HyperShop.Models.OrderStatus", b =>
@@ -670,52 +596,6 @@ namespace HyperShop.Data.Migrations
                     b.Navigation("Color");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("HyperShop.Models.Order", b =>
-                {
-                    b.HasOne("HyperShop.Models.CityShipCost", "CityShipCost")
-                        .WithMany()
-                        .HasForeignKey("CityShipCost_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HyperShop.Models.OrderStatus", "OrderStatus")
-                        .WithMany()
-                        .HasForeignKey("Status_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HyperShop.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("User_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CityShipCost");
-
-                    b.Navigation("OrderStatus");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("HyperShop.Models.OrderDetail", b =>
-                {
-                    b.HasOne("HyperShop.Models.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("Order_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HyperShop.Models.ProductVariation", "ProductVariation")
-                        .WithMany()
-                        .HasForeignKey("ProductVariation_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-
-                    b.Navigation("ProductVariation");
                 });
 
             modelBuilder.Entity("HyperShop.Models.PrimaryImage", b =>
