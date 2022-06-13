@@ -87,6 +87,9 @@
                 </div>
                 <div id="navigation" class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a asp-area="Customer" asp-controller="Product" asp-action="Index" class="nav-link">Product</a>
+                        </li>
                         @if (User.IsInRole(SD.Role_Admin))
                         {
                             <li class="nav-item dropdown">
@@ -124,6 +127,9 @@
                                                 <li class="nav-item">
                                                     <a asp-area="Identity" asp-page="/Account/Register"  class="nav-link">Add User</a>
                                                 </li>
+                                                <li class="nav-item">
+                                                    <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="nav-link">Order Manage</a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -132,9 +138,6 @@
                         }
                         @if (User.IsInRole(SD.Role_User))
                         {
-                            <li class="nav-item">
-                                <a asp-area="Customer" asp-controller="Product" asp-action="Index" class="nav-link">Product</a>
-                            </li>
                             <li class="nav-item">
                                 <a asp-area="Customer" asp-controller="Checkout" asp-action="Orders" class="nav-link">My Orders</a>
                             </li>
@@ -266,6 +269,7 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>*@
     @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Styles", required: false)
 </body>
 </html>
 

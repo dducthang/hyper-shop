@@ -1,47 +1,114 @@
-﻿@{
-    ViewData["Title"] = "Orders";
-}
-
-@if (TempData["success"] != null)
-{
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script type="text/javascript">
-        toastr.success('@TempData["success"]');     
-    </script>
-}
-
-<div class="container p-3">
-    <div class="row pt-4">
-        <div class="col-6">
-            <h2 class="text-primary">Order List</h2>
-		</div>
-        <div class="col-6 d-flex justify-content-end">
-            <a area="Admin" asp-controller="Product" asp-action="Upsert" class="btn btn-primary">
-               <i class="bi bi-plus-circle"></i> &nbsp; Create New Product
-			</a>
-		</div>
-	</div>
-    <br /><br />
-
-<table id="tblData" class="table table-bordered table-striped" style="width:100%">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Receiver</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>Order Date</th>
-            <th>Total</th>
-            <th>Status</th>
-            <th></th>
-		</tr>
-	</thead>
-</table>
+﻿@using HyperShop.Utility.Class
+@model HyperShop.Models.ViewModels.Order_AdminVM 
+<div class="main-container m-4 p-4" style="background: white; border-radius:10px;">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="title">
+                            <h4>Basic Tables</h4>
+                        </div>
+                        <nav aria-label="breadcrumb" role="navigation">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Basic Tables</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-right">
+                        <div class="dropdown">
+                            <select asp-items="@Model.OrderStatus" class="btn btn-primary">
+                                <option value="All">All</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- basic table  Start -->
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix mb-20">
+                    <div class="pull-left">
+                        <h4 class="text-blue h4">Basic Table</h4>
+                        <p>Add class <code>.table</code></p>
+                    </div>
+                </div>
+                <table class="table" id="tblData">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Receiver</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>City</th>
+                            <th>Order Date</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th></th>
+		                </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var order in Model.Orders)
+                        {
+                            string badge = "badge-warning";
+                            string orderStatus = @order.OrderStatus.Status;
+                            if (orderStatus == SD.OrderStatus_Delivered)
+                            {
+                                badge = "badge-success";
+                            }
+                            else if (orderStatus == SD.OrderStatus_Delevering)
+                            {
+                                badge = "badge-info";
+                            }
+                            var leftStatus = @Model.OrderStatus.Where(s => s.Text != @order.OrderStatus.Status);
+                            <tr id="@order.Id">
+                                <th scope="row">@order.Id</th>
+                                <td>@order.Receiver</td>
+                                <td>@order.Email</td>
+                                <td>@order.PhoneNumber</td>
+                                <td>@order.Address</td>
+                                <td>@order.CityShipCost.CityName</td>
+                                <td>@order.OrderDate.ToString("dd-MM-yyyy")</td>
+                                <td>@order.TotalCost</td>
+                                <td><span class="badge @badge">@order.OrderStatus.Status</span></td>
+                                <td>
+                                    <select asp-items="@leftStatus" class="btn btn-primary update-status-btn">
+                                        <option disabled selected>--Update Status--</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="collapse collapse-box" id="basic-table">
+                    <div class="code-box">
+                        <div class="clearfix">
+                            <a href="javascript:;" class="btn btn-primary btn-sm code-copy pull-left" data-clipboard-target="#basic-table-code"><i class="fa fa-clipboard"></i> Copy Code</a>
+                            <a href="#basic-table" class="btn btn-primary btn-sm pull-right" rel="content-y" data-toggle="collapse" role="button"><i class="fa fa-eye-slash"></i> Hide Code</a>
+                        </div>
+                        <pre><code class="xml copy-pre" id="basic-table-code">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </code></pre>
+                    </div>
+                </div>
+            </div>
+            <!-- basic table  End -->
+        </div>
+    </div>
 </div>
 
 @section Scripts{
-    <script src="~/js/product.js"></script>
+    <script id="rerun_id" src="~/js/order_admin.js"></script>
 }

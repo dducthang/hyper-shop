@@ -3,6 +3,7 @@ using HyperShop.DataAccess.Repository.IRepository;
 using HyperShop.Models;
 using HyperShop.Models.ViewModels;
 using HyperShop.Utility.Class;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
